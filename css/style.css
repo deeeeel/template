@@ -47,3 +47,56 @@ tooltip
 .tooltip-content {
 	display: none;
 }
+/*-------------------------------------
+lightbox
+-------------------------------------*/
+.overlay {
+	position: fixed;
+    display: none;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    opacity: 0.85;
+    background-color: #323246;
+}
+.lightbox-wrap {
+	display: none;
+	width: 500px;
+	height: 500px;
+	position: fixed;
+	top: 20px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+	z-index: 20;
+	background-color: #FFFFFF;
+}
+.lightbox-close-btn {
+	position: fixed;
+	top: 20px;
+	right: 20px;
+	cursor: pointer;
+}
+.close-btn:before,
+.close-btn:after{
+  display: block;
+  content: '';
+  width: 7px;
+  height: 40px;
+  -webkit-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  background-color: #b13368;
+  border-radius: 10px;
+  position: absolute;
+  top: 25px;
+  left: -20px;
+}
+.close-btn:after{
+  -webkit-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+}

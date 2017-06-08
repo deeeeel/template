@@ -157,3 +157,37 @@ TEMPLATE.COMMON.TOOLTIP = {
 $(function(){
 	TEMPLATE.COMMON.TOOLTIP.init();
 });
+
+/*-------------------------------------
+ツールチップ
+-------------------------------------*/
+TEMPLATE.COMMON.LIGHTBOX = {
+	init : function(){
+		this.setParameters();
+		this.bindEvents();
+	},
+	setParameters : function(){
+		this.$lightBox = $('.jsc-lightbox-wrap');
+		this.$overlay = $('#jsc-overlay');
+		this.$trigger = $('.jsc-lightbox-trigger');
+		this.$closeBtn = $('.jsc-lightbox-close-btn');
+	},
+	bindEvents : function(){
+		this.$trigger.on('click',$.proxy(this.toggleContent,this));
+		this.$closeBtn.on('click',$.proxy(this.closeContent,this));
+	},
+	toggleContent : function(e){
+		e.preventDefault();
+		this.$lightBox.toggle();
+		this.$overlay .toggle();
+	},
+	closeContent : function(e){
+		e.preventDefault();
+		this.$lightBox.hide();
+		this.$overlay .hide();
+	}
+};
+
+$(function(){
+	TEMPLATE.COMMON.LIGHTBOX.init();
+});
