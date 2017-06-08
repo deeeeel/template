@@ -105,3 +105,55 @@ TEMPLATE.COMMON.ACCORDION_MULTIPLE_CONSTRUCTOR.prototype = {
 $(function(){
 	TEMPLATE.COMMON.ACCORDION_CONTROLLER.init();
 });
+
+/*-------------------------------------
+ツールチップ
+-------------------------------------*/
+TEMPLATE.COMMON.TOOLTIP = {
+	ANIMATION_SPEED : 300,
+	init : function(){
+		this.setParameters();
+		//HTMLの構造によって制限がある場合
+		this.bindEvents();
+		//HTMLの構造によって制限がない場合
+		// this.toggleContent();
+	},
+	setParameters : function(){
+		this.$wrapper = $('.jsc-tooltip-wrap');
+		this.$trigger = $('.jsc-tooltip-trigger');
+		this.$hideContetnt = $('.jsc-tooltip-content');
+	},
+	bindEvents : function(){
+		var _self = this;
+		this.$trigger.on('mouseover',function(){
+			_self.showContent($(this));
+		});
+		this.$trigger.on('mouseout',function(){
+			_self.hideContent($(this));
+		});
+	},
+	toggleContent : function(){
+		var _self = this;
+		this.$wrapper.each(function(){
+			var $wrapper = $(this);
+			$wrapper.find('.jsc-tooltip-trigger').on('mouseover',function(){
+				var hideContent = $wrapper.find('.jsc-tooltip-content');
+				hideContent.fadeIn(_self .ANIMATION_SPEED);
+			});
+			$wrapper.find('.jsc-tooltip-trigger').on('mouseout',function(){
+				var hideContent = $wrapper.find('.jsc-tooltip-content');
+				hideContent.fadeOut(_self .ANIMATION_SPEED);
+			});
+		});
+	},
+	showContent : function($trigger){
+		$trigger.parent('.jsc-tooltip-trigger-wrap').next('.jsc-tooltip-content').fadeIn(this.ANIMATION_SPEED);
+	},
+	hideContent : function($trigger){
+		$trigger.parent('.jsc-tooltip-trigger-wrap').next('.jsc-tooltip-content').fadeOut(this.ANIMATION_SPEED);
+	}
+};
+
+$(function(){
+	TEMPLATE.COMMON.TOOLTIP.init();
+});

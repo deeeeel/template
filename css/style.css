@@ -29,3 +29,21 @@ h2 {
 .section-body {
 	margin-top: 30px;
 }
+
+a {
+	cursor: pointer;
+}
+
+/*-------------------------------------
+accordion
+-------------------------------------*/
+.accordion-content {
+	display: none;
+}
+
+/*-------------------------------------
+tooltip
+-------------------------------------*/
+.tooltip-content {
+	display: none;
+}
