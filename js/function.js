@@ -159,7 +159,7 @@ $(function(){
 });
 
 /*-------------------------------------
-ツールチップ
+ライトボックス
 -------------------------------------*/
 TEMPLATE.COMMON.LIGHTBOX = {
 	init : function(){
@@ -179,15 +179,85 @@ TEMPLATE.COMMON.LIGHTBOX = {
 	toggleContent : function(e){
 		e.preventDefault();
 		this.$lightBox.toggle();
-		this.$overlay .toggle();
+		this.$overlay.toggle();
 	},
 	closeContent : function(e){
 		e.preventDefault();
 		this.$lightBox.hide();
-		this.$overlay .hide();
+		this.$overlay.hide();
 	}
 };
 
 $(function(){
 	TEMPLATE.COMMON.LIGHTBOX.init();
+});
+/*-------------------------------------
+クロスフェードビューアー
+-------------------------------------*/
+TEMPLATE.COMMON.TAB_BACKGROUND = {
+	init : function(){
+		this.setParameters();
+		this.setImg();
+	},
+	setParameters : function(){
+		this.$wrap = $('#jsi-wrap');
+	},
+	setImg : function(){
+		$(window).load(function(){
+			var setElm = $('.viewer'),
+			setMaxWidth = 800,
+			setMinWidth = 320,
+			fadeSpeed = 3000,
+			switchDelay = 5000,
+			naviOpc = 0.5;
+
+			setElm.each(function(){
+				var targetObj = $(this),
+				findUl = targetObj.find('ul'),
+				findLi = targetObj.find('li'),
+				findLiFirst = targetObj.find('li:first');
+
+				findLi.css({display:'block',opacity:'0',zIndex:'99'});
+				findLiFirst.css({zIndex:'70'}).stop().animate({opacity:'1'},fadeSpeed);
+
+				function timer(){
+					var setTimer = setInterval(function(){
+						slideNext();
+					},switchDelay);
+				}
+				timer();
+
+				function slideNext(){
+					findUl.find('li:first-child').not(':animated').animate({opacity:'0'},fadeSpeed).next('li').css({zIndex:'100'}).animate({opacity:'1'},fadeSpeed).end().appendTo(findUl).css({zIndex:'99'});
+				}
+				function slidePrev(){
+					findUl.find('li:first-child').not(':animated').css({zIndex:'99'}).animate({opacity:'0'},fadeSpeed).siblings('li:last-child').css({zIndex:'100'}).animate({opacity:'1'},fadeSpeed).prependTo(findUl);
+				}
+				var windowWidth = $(window).width();
+				targetObj.css({width:windowWidth,display:'block'});
+
+				// メイン画像をベースにエリアの幅と高さを設定
+				var setLiImg = findLi.find('span'),
+				baseWidth = setLiImg.width(),
+				baseHeight = $(window).height();
+
+				// レスポンシブ動作メイン
+				function imgSize(){
+					var windowWidth = parseInt($(window).width());
+						targetObj.css({width:'100%'});
+						findUl.css({width:'100%'});
+						findLi.css({width:'100%'});
+
+						targetObj.css({height:baseHeight});
+						findUl.css({height:baseHeight});
+						findLi.css({height:baseHeight});
+				}
+				$(window).resize(function(){imgSize();}).resize();
+			});
+		});
+	}
+};
+
+$(function(){
+	TEMPLATE.COMMON.TAB_BACKGROUND.init();
 });
