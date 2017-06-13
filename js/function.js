@@ -194,7 +194,12 @@ $(function(){
 /*-------------------------------------
 クロスフェードビューアー
 -------------------------------------*/
-TEMPLATE.COMMON.TAB_BACKGROUND = {
+TEMPLATE.COMMON.CROSSFADE_VIEWER = {
+	MAXWIDTH : 800,
+	MINWIDTH : 320,
+	FADESPEED : 3000,
+	SWITCHDELAY : 3000,
+	NAVOPACITY : 0.5,
 	init : function(){
 		this.setParameters();
 		this.setImg();
@@ -203,22 +208,22 @@ TEMPLATE.COMMON.TAB_BACKGROUND = {
 		this.$wrap = $('#jsi-wrap');
 	},
 	setImg : function(){
+		var _self = this;
 		$(window).load(function(){
-			var setElm = $('.viewer'),
+			var setElm = $('.jsc-crossfade-viewer'),
 			setMaxWidth = 800,
 			setMinWidth = 320,
-			fadeSpeed = 3000,
-			switchDelay = 5000,
+			switchDelay = 3000,
 			naviOpc = 0.5;
 
 			setElm.each(function(){
 				var targetObj = $(this),
-				findUl = targetObj.find('ul'),
-				findLi = targetObj.find('li'),
-				findLiFirst = targetObj.find('li:first');
+				$container = targetObj.find('.jsc-crossfade-viewer-container'),
+				$item = $container.children('li'),
+				$itemFirst = $container.children('li:first');
 
-				findLi.css({display:'block',opacity:'0',zIndex:'99'});
-				findLiFirst.css({zIndex:'70'}).stop().animate({opacity:'1'},fadeSpeed);
+				$item.css({display:'block',opacity:'0',zIndex:'99'});
+				$itemFirst.css({zIndex:'70'}).stop().animate({opacity:'1'},_self.FADESPEED);
 
 				function timer(){
 					var setTimer = setInterval(function(){
@@ -228,29 +233,29 @@ TEMPLATE.COMMON.TAB_BACKGROUND = {
 				timer();
 
 				function slideNext(){
-					findUl.find('li:first-child').not(':animated').animate({opacity:'0'},fadeSpeed).next('li').css({zIndex:'100'}).animate({opacity:'1'},fadeSpeed).end().appendTo(findUl).css({zIndex:'99'});
+					$container.find('li:first-child').not(':animated').animate({opacity:'0'},_self.FADESPEED).next('li').css({zIndex:'100'}).animate({opacity:'1'},this._self.FADESPEED).end().appendTo($container).css({zIndex:'99'});
 				}
 				function slidePrev(){
-					findUl.find('li:first-child').not(':animated').css({zIndex:'99'}).animate({opacity:'0'},fadeSpeed).siblings('li:last-child').css({zIndex:'100'}).animate({opacity:'1'},fadeSpeed).prependTo(findUl);
+					$container.find('li:first-child').not(':animated').css({zIndex:'99'}).animate({opacity:'0'},_self.FADESPEED).siblings('li:last-child').css({zIndex:'100'}).animate({opacity:'1'},_self.FADESPEED).prependTo($container);
 				}
 				var windowWidth = $(window).width();
 				targetObj.css({width:windowWidth,display:'block'});
 
 				// メイン画像をベースにエリアの幅と高さを設定
-				var setLiImg = findLi.find('span'),
-				baseWidth = setLiImg.width(),
+				var $img = $item.find('span'),
+				baseWidth = $img.width(),
 				baseHeight = $(window).height();
 
 				// レスポンシブ動作メイン
 				function imgSize(){
 					var windowWidth = parseInt($(window).width());
 						targetObj.css({width:'100%'});
-						findUl.css({width:'100%'});
-						findLi.css({width:'100%'});
+						$container.css({width:'100%'});
+						$item.css({width:'100%'});
 
 						targetObj.css({height:baseHeight});
-						findUl.css({height:baseHeight});
-						findLi.css({height:baseHeight});
+						$container.css({height:baseHeight});
+						$item.css({height:baseHeight});
 				}
 				$(window).resize(function(){imgSize();}).resize();
 			});
@@ -259,5 +264,5 @@ TEMPLATE.COMMON.TAB_BACKGROUND = {
 };
 
 $(function(){
-	TEMPLATE.COMMON.TAB_BACKGROUND.init();
+	TEMPLATE.COMMON.CROSSFADE_VIEWER.init();
 });

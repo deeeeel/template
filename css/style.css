@@ -124,7 +124,7 @@ lightbox
 /*-------------------------------------
 crossFadeViewer
 -------------------------------------*/
-.viewer {
+.crossfade-viewer {
     margin: 0 auto;
     width: 100%;
     position: relative;
@@ -132,11 +132,11 @@ crossFadeViewer
 	display: none;
 	z-index: 0;
 }
-.viewer ul {
+.crossfade-viewer-container {
 	display: inline-block;
 	overflow: hidden;
 }
-.viewer ul li {
+.crossfade-viewer-container > li {
 	top: 0;
 	left: 0;
 	width: 100%;
