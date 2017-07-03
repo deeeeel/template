@@ -197,8 +197,8 @@ $(function(){
 TEMPLATE.COMMON.CROSSFADE_VIEWER = {
 	MAXWIDTH : 800,
 	MINWIDTH : 320,
-	FADESPEED : 3000,
-	SWITCHDELAY : 3000,
+	FADESPEED : 2000,
+	SWITCHDELAY : 1000,
 	NAVOPACITY : 0.5,
 	init : function(){
 		this.setParameters();
@@ -233,7 +233,7 @@ TEMPLATE.COMMON.CROSSFADE_VIEWER = {
 				timer();
 
 				function slideNext(){
-					$container.find('li:first-child').not(':animated').animate({opacity:'0'},_self.FADESPEED).next('li').css({zIndex:'100'}).animate({opacity:'1'},this._self.FADESPEED).end().appendTo($container).css({zIndex:'99'});
+					$container.find('li:first-child').not(':animated').animate({opacity:'0'},_self.FADESPEED).next('li').css({zIndex:'100'}).animate({opacity:'1'},_self.FADESPEED).end().appendTo($container).css({zIndex:'99'});
 				}
 				function slidePrev(){
 					$container.find('li:first-child').not(':animated').css({zIndex:'99'}).animate({opacity:'0'},_self.FADESPEED).siblings('li:last-child').css({zIndex:'100'}).animate({opacity:'1'},_self.FADESPEED).prependTo($container);
