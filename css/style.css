@@ -4,36 +4,75 @@
 page
 -------------------------------------*/
 #page-wrapper {
-	padding: 50px 100px;
+	max-width: 1480px;
+	margin: 0 auto;
 }
-
 main {
 	padding: 30px 0;
 }
-
 .section-block {
 	border-top: 1px solid #BDBDBD;
 	padding: 20px 0;
 }
-
 h1 {
 	font-size: 38px;
 	font-weight: bold;
 }
-
 h2 {
 	font-size: 25px;
 	font-weight: bold;
 }
-
 .section-body {
 	margin-top: 30px;
 }
-
 a {
 	cursor: pointer;
 }
-
+img {
+	width: 100%;
+	height: auto;
+}
+/*-------------------------------------
+page
+-------------------------------------*/
+#page-header {
+	height: 100px;
+	border-bottom: 1px solid #CDCDCD;
+	position: fixed;
+	width: 100%;
+	max-width: 1480px;
+	min-width: 320px;
+	background-color: #FFFFFF;
+	z-index: 10;
+}
+.page-header-inner {
+	position: relative;
+	height: 100%;
+}
+.page-logo {
+	width: 40px;
+	height: 40px;
+	position: absolute;
+	top: 30px;
+	left: 30px;
+}
+.header-nav {
+	position: absolute;
+	bottom: 20px;
+	right: 180px;
+}
+.header-nav-list {
+	display: flex;
+	margin-left: -20px;
+	margin-right: -20px;
+}
+.header-nav-list > li {
+	padding-left: 20px;
+	padding-right: 20px;
+}
+.header-nav-list > li > a {
+	display: block;
+}
 /*-------------------------------------
 accordion
 -------------------------------------*/
