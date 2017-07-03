@@ -266,3 +266,69 @@ TEMPLATE.COMMON.CROSSFADE_VIEWER = {
 $(function(){
 	TEMPLATE.COMMON.CROSSFADE_VIEWER.init();
 });
+/*-------------------------------------
+テキストフェードイン
+-------------------------------------*/
+TEMPLATE.COMMON.TextFadeIN = {
+	FADESPEED : 600,
+	init : function(){
+		this.setParameter();
+		this.fadeTopKv();
+		this.bindEvents();
+	},
+	setParameter : function(){
+		this.$window = $(window);
+		this.$pageTitle = $('#jsi-page-title')
+		this.$subTitle = $('#jsi-kv-sub-title');
+		this.kvText = $('#jsi-kv-text');
+		this.$fadeInContents = $('.jsc-fadein-text-contents');
+	},
+	bindEvents : function(){
+		var _self = this;
+		this.$window.scroll(function(){
+			_self.fadeinChk();
+		});
+	},
+	fadeTopKv : function(){
+		var _self = this;
+		setTimeout(function(){
+			_self.$pageTitle.fadeTo(_self.FADESPEED,1,function(){
+				_self.$subTitle.fadeTo(_self.FADESPEED,1,function(){
+					_self.kvText.fadeTo(_self.FADESPEED,1);
+				});
+			});
+		},300);
+	},
+	fadeinChk : function(){
+		var _self = this;
+		var scrollTrgPos = window.innerHeight/1.3;// Npx前
+		var scrollTrgPos2 = window.innerHeight/1.1;// Npx前 history以降用
+
+		var y = $(window).scrollTop();
+
+		var endScrollHeight = $(document).height();
+		var endScrollPosition = $(window).height() + y;
+
+		this.$fadeInContents.each(function(idx){
+			var $this = $(this);
+			var top = $this.offset().top;
+			var trgPos = top - scrollTrgPos;
+			if($this.parents('#history').length > 0 || $this.parents('#lifewithsunstar').length > 0 || $this.parents('#csr').length > 0){
+				trgPos = top - scrollTrgPos2;
+			}
+
+			if(y > trgPos){
+				$this.fadeTo(_self.FADESPEED,1);
+			}
+		});
+
+		if ((endScrollHeight - endScrollPosition) / endScrollHeight === 0) {
+			// 一番下
+			_self.$fadeInContents.fadeTo(_self.FADESPEED,1);
+		}
+	}
+};
+
+$(function(){
+	TEMPLATE.COMMON.TextFadeIN.init();
+});
